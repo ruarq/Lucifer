@@ -1,7 +1,7 @@
-workspace "engine"
+workspace "Lucifer"
 	configurations { "debug", "release" }
 
-project "engine"
+project "lucifer"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++20"
