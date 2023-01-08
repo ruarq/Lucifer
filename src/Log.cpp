@@ -10,11 +10,13 @@ namespace Lc {
 		, log_level{ log_level } {
 	}
 
-	void Log::write(const size_t level, const std::string_view &message) {
+	auto Log::write(const size_t level, const std::string_view &message) -> Log & {
 		if (level > log_level) {
-			return;
+			ignore_line = true;
+			return *this;
 		}
-
+		ignore_line = false;
 		fmt::print(fout, "[{}] {}\n", std::chrono::system_clock::now(), message);
+		return *this;
 	}
 }

@@ -19,30 +19,40 @@ namespace Lc {
 	struct Log {
 		Log(FILE *fout, size_t log_level);
 
-		void write(size_t level, const std::string_view &message);
+		auto write(size_t level, const std::string_view &message) -> Log &;
 
 		template<typename... Args>
-		void debug(fmt::format_string<Args...> fmt, Args &&...args) {
-			write(LogLevelDebug, fmt::vformat(fmt, fmt::make_format_args(args...)));
+		auto debug(fmt::format_string<Args...> fmt, Args &&...args) -> Log & {
+			return write(LogLevelDebug, fmt::vformat(fmt, fmt::make_format_args(args...)));
 		}
 
 		template<typename... Args>
-		void error(fmt::format_string<Args...> fmt, Args &&...args) {
-			write(LogLevelError, fmt::vformat(fmt, fmt::make_format_args(args...)));
+		auto error(fmt::format_string<Args...> fmt, Args &&...args) -> Log & {
+			return write(LogLevelError, fmt::vformat(fmt, fmt::make_format_args(args...)));
 		}
 
 		template<typename... Args>
-		void warning(fmt::format_string<Args...> fmt, Args &&...args) {
-			write(LogLevelWarning, fmt::vformat(fmt, fmt::make_format_args(args...)));
+		auto warning(fmt::format_string<Args...> fmt, Args &&...args) -> Log & {
+			return write(LogLevelWarning, fmt::vformat(fmt, fmt::make_format_args(args...)));
 		}
 
 		template<typename... Args>
-		void info(fmt::format_string<Args...> fmt, Args &&...args) {
-			write(LogLevelInfo, fmt::vformat(fmt, fmt::make_format_args(args...)));
+		auto info(fmt::format_string<Args...> fmt, Args &&...args) -> Log & {
+			return write(LogLevelInfo, fmt::vformat(fmt, fmt::make_format_args(args...)));
+		}
+
+		template<typename... Args>
+		auto line(fmt::format_string<Args...> fmt, Args &&...args) -> Log & {
+			if (!ignore_line) {
+				fmt::print("\t{}\n", fmt::vformat(fmt, fmt::make_format_args(args...)));
+			}
+
+			return *this;
 		}
 
 		FILE *fout{};
 		size_t log_level{ LogLevelWarning };
+		bool ignore_line{ false };
 	};
 }
 

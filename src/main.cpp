@@ -20,7 +20,7 @@ auto main() -> int {
 	*/
 
 	Lc::Log log{ stdout, Lc::LogLevelInfo };
-	log.info("Lucifer v{}", LC_VERSION);
+	log.info("Lucifer v{}", LC_VERSION).line("initializing...");
 
 	std::fclose(stdout);
 	return 0;
