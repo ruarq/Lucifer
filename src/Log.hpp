@@ -8,15 +8,18 @@
 #include "common.hpp"
 #include "fmt/core.h"
 
-namespace Lc {
+namespace lc {
 	enum LogLevel : size_t {
 		LogLevelNoLogs,
-		LogLevelDebug,
 		LogLevelError,
 		LogLevelWarning,
-		LogLevelInfo
+		LogLevelInfo,
+		LogLevelDebug
 	};
 
+	/**
+	 * @brief thread safe logging
+	 */
 	struct Log {
 		static auto self() -> Log &;
 

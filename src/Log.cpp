@@ -1,10 +1,11 @@
 #include "Log.hpp"
 
 #include <chrono>
+#include <mutex>
 
 #include <fmt/chrono.h>
 
-namespace Lc {
+namespace lc {
 	auto Log::self() -> Log & {
 		static Log log;
 		return log;

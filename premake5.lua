@@ -9,6 +9,10 @@ project "lucifer"
 	buildoptions { "`pkg-config fmt --cflags`" }
 	linkoptions { "`pkg-config fmt --libs`" }
 
+	filter { "system:unix" }
+		links { "pthread" }
+	filter {}
+
 	files { "src/**.hpp", "src/**.cpp" }
 
 	warnings "High"
